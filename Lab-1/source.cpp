@@ -42,6 +42,27 @@ class DoublyLinkedList {
                 curr->link = XOR(prev, newNode);
             }
         }
+        void deleteEnd() {
+            if (!this->head) 
+                return NULL;
+            Node* prev = NULL, *curr = this->head, *next = XOR(prev, curr->link);
+            while (next) {
+                prev = curr;
+                curr = next;
+                next = XOR(prev, curr->link);
+            }
+            if (prev)
+                prev->link = XOR(prev->link, curr);
+            delete curr;
+        }
+        void deleteBeg() {
+            if (!this->head) 
+                return NULL;
+            Node* next = this->XOR(this->head->link, NULL);
+            if (next)
+                next->link = this->XOR(head, next->link);
+            this->head = next;
+        }
         void display() {
             cout << endl;
             if(!this->head) {
